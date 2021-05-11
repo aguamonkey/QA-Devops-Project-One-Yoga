@@ -7,3 +7,9 @@ class TaskForm(FlaskForm):
     instruction = StringField("Move Instructions:", validators=[DataRequired()])
     difficulty = SelectField("Move Difficulty:", choices=["Beginner", "Intermediate", "Advanced"])
     submit = SubmitField('Create Move')
+
+class TaskFormTwo(FlaskForm):
+    name = StringField("Sequence Name:", validators=[DataRequired()])
+    time = StringField("Minutes to complete:", validators=[DataRequired()])
+    difficulty = SelectField("Move Difficulty:", choices=["Beginner", "Intermediate", "Advanced"])
+    submit = SubmitField('Create Sequence')

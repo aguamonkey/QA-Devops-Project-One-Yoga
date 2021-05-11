@@ -6,4 +6,4 @@ class TaskForm(FlaskForm):
     description = StringField("Move Name:", validators=[DataRequired()])
     instruction = StringField("Move Instructions:", validators=[DataRequired()])
     difficulty = SelectField("Move Difficulty:", choices=["Beginner", "Intermediate", "Advanced"])
-    submit = SubmitField('Add Task')
+    submit = SubmitField('Create Move')

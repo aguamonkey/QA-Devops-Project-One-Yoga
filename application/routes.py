@@ -45,6 +45,7 @@ def update(id):
     if request.method == "POST":
         task.description = form.description.data
         task.instruction = form.instruction.data
+        task.difficulty = form.difficulty.data
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("update.html", form=form, title="Update Task", task=task)

@@ -3,7 +3,6 @@
 
 <h2>Yoga Moves</h2>
 {% for task in all_tasks %}
-    {% if task.completed == False %}
         {{ task.description + ":" }} 
         <br>
         {{ task.difficulty }}
@@ -15,32 +14,26 @@
         <form action="{{ url_for('delete', id=task.id) }}">
             <input type=submit value="Delete">
         </form>
-     <!----  <form action="{{ url_for('complete', id=task.id) }}">
-            <input type=submit value="Complete"> -->
-        </form>
+
+       
         
         
-    {% endif %}
 {% endfor %}
 
 <h2>Yoga Sequences</h2>
-{% for task in all_sequences %}
-    {% if task.completed == True %}
-        {{ task.name }}
-        {{ task.date_created }}
+{% for move in all_sequence %}
+        {{ move.name }}
         <br>
-        <form action="{{ url_for('update', id=task.id) }}">
+        {{ move.difficulty }}
+        <br>
+        <form action="{{ url_for('updatesequences', id=move.id) }}">
             <input type=submit value="Update">
         </form>
-        <form action="{{ url_for('delete', id=task.id) }}">
+        <form action="{{ url_for('delete', id=move.id) }}">
             <input type=submit value="Delete">
         </form>
-        <form action="{{ url_for('incomplete', id=task.id) }}">
-            <input type=submit value="Incomplete">
-        </form>
         <br>
         <br>
-    {% endif %}
 {% endfor %}
 
 {% endblock body %}

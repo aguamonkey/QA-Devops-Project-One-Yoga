@@ -37,19 +37,7 @@ def createsequence():
 
     return render_template("addsequence.html", title="Create a sequence", form=form)
 
-@app.route('/complete/<int:id>')
-def complete(id):
-    task = YogaMove.query.filter_by(id=id).first()
-    task.completed = True
-    db.session.commit()
-    return redirect(url_for("home"))
 
-@app.route("/incomplete/<int:id>")
-def incomplete(id):
-    task = YogaMove.query.filter_by(id=id).first()
-    task.completed = False
-    db.session.commit()
-    return redirect(url_for("home"))
 
 
 @app.route("/update/<int:id>", methods=["GET", "POST"])
@@ -62,7 +50,20 @@ def update(id):
         task.difficulty = form.difficulty.data
         db.session.commit()
         return redirect(url_for("home"))
-    return render_template("update.html", form=form, title="Update Task", task=task)
+    return render_template("updatemoves.html", form=form, title="Update Move", task=task)
+
+@app.route("/updatesequences/<int:id>", methods=["GET", "POST"])
+def updatesequences(id):
+    formTwo = TaskFormTwo()
+    task = YogaSequence.query.filter_by(id=id).first()
+    if request.method == "POST":
+        task.name = formTwo.name.data
+        task.time = formTwo.time.data
+        task.difficulty = form.difficulty.data
+        db.session.commit()
+        return redirect(url_for("home"))
+    return render_template("updatesequences.html", formTwo=formTwo, title="Update Sequence", task=task)
+
 
 @app.route("/delete/<int:id>")
 def delete(id):

@@ -4,6 +4,10 @@
 <form action='' method='POST'>
     {{ form.hidden_tag() }}
     {{ form.description.label }} {{ form.description }} <br><br>
+    {{ form.instruction.label }} {{ form.instruction }} <br><br>
+    {{ form.difficulty.label }} {{ form.difficulty }} <br><br>
+
+
     {{ form.submit }}
 </form>
 {% endblock body %}

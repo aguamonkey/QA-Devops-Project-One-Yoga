@@ -1,15 +1,26 @@
 {% extends 'layout.html' %}
 {% block body %}
 <br><br>
+
+
 Original Sequence: {{ task.name }} <br><br>
 Original Time In Minutes: {{ task.time }}<br><br>
-Original Difficulty: {{ task.difficulty }}
+Original Difficulty: {{ task.difficulty }}<br><br>
+Original Moves: {{ instruction_names }}
+
 <br><br>
 <form action='' method='POST'>
     {{ formTwo.hidden_tag() }}
     {{ formTwo.name.label }} {{ formTwo.name }} <br><br>
     {{ formTwo.time.label }} {{ formTwo.time }} <br><br>
     {{ formTwo.difficulty.label }} {{ formTwo.difficulty }} <br><br>
+    {% for instruction in instructions %}
+    {{ instruction }} <br><br>
+    {% endfor %}
+    {{ formTwo.instruction.label}} {{ formTwo.instruction }}<br><br>
+
+    {{ formTwo.add_instruction }}
+
     {{ formTwo.submit }}
 </form>
 {% endblock body %}

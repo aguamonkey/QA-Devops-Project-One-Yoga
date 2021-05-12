@@ -2,6 +2,7 @@ from application import db
 from datetime import datetime
 
 association_table = db.Table('association_table', db.Model.metadata,
+    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
     db.Column('move_id', db.Integer, db.ForeignKey('yoga_move.id')),
     db.Column('sequence_id', db.Integer, db.ForeignKey('yoga_sequence.id')))
 

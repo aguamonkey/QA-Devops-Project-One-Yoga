@@ -1,13 +1,14 @@
 from application import app, db
 from application.models import YogaMove, YogaSequence
 from application.forms import TaskForm, TaskFormTwo
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 
 @app.route("/")
 @app.route('/home')
 def home():
     all_tasks = YogaMove.query.all()
     all_sequence = YogaSequence.query.all()
+    session["current_id"]=None
     output = ""
     return render_template("index.html", title="Home", all_tasks=all_tasks, all_sequence=all_sequence)
 
@@ -26,16 +27,30 @@ def create():
 
 @app.route('/createsequence', methods=["GET", "POST"])
 def createsequence():
-    form = TaskFormTwo()
-    if request.method == "POST":
-        if form.validate_on_submit():
-            sequence = YogaSequence(name=form.name.data, difficulty=form.difficulty.data, time=form.time.data)
-            #not sure if you can put these both on the same line
-            db.session.add(sequence)
-            db.session.commit()
-            return redirect(url_for("home"))
+    form = TaskFormTwo(request.form)
+    if session.get('current_id'): instructions = session['current_id']
+    else: instructions = []
+             
+    form.instruction.choices = [(move.id, move.description) for move in YogaMove.query.all()]
 
-    return render_template("addsequence.html", title="Create a sequence", form=form)
+    if request.method == "POST":
+        if form.submit.data:
+            if form.validate_on_submit():
+                moves = [YogaMove.query.get(id) for id in instructions]
+                print(moves)
+                sequence = YogaSequence(name=form.name.data, difficulty=form.difficulty.data, time=form.time.data,
+                moves=moves)
+            #not sure if you can put these both on the same line
+                db.session.add(sequence)
+                db.session.commit()
+                return redirect(url_for("home"))
+        if form.add_instruction.data:
+            if form.instruction.data:
+                instructions.append(form.instruction.data)
+                session['current_id'] = instructions
+    instructions = [YogaMove.query.get(id).description for id in instructions]
+
+    return render_template("addsequence.html", title="Create a sequence", form=form, instructions=instructions)
 
 
 

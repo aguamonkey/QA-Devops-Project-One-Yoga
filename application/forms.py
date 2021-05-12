@@ -12,4 +12,6 @@ class TaskFormTwo(FlaskForm):
     name = StringField("Sequence Name:", validators=[DataRequired()])
     time = IntegerField("Minutes to complete (number required):", validators=[DataRequired()])
     difficulty = SelectField("Sequence Difficulty:", choices=["Beginner", "Intermediate", "Advanced"])
+    instruction = SelectField("Add new instruction:", choices=[])
     submit = SubmitField('Create Sequence')
+    add_instruction = SubmitField('Add Instruction')

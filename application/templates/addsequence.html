@@ -2,11 +2,17 @@
 {% block body %}
 <br><br>
 <form action='' method='POST'>
+
     {{ form.hidden_tag() }}
     {{ form.name.label }} {{ form.name }} <br><br>
     {{ form.time.label }} {{ form.time }} <br><br>
     {{ form.difficulty.label }} {{ form.difficulty }} <br><br>
+    {% for instruction in instructions %}
+    {{ instruction }}
+    {% endfor %}
+    {{ form.instruction.label}} {{ form.instruction }}<br>
 
+    {{ form.add_instruction }}
 
     {{ form.submit }}
 </form>

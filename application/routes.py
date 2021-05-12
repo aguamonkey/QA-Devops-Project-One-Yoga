@@ -71,3 +71,10 @@ def delete(id):
     db.session.delete(task)
     db.session.commit()
     return redirect(url_for("home"))
+
+@app.route("/deletesequence/<int:id>")
+def deletesequence(id):
+    task = YogaSequence.query.filter_by(id=id).first()
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for("home"))

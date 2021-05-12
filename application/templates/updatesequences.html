@@ -2,14 +2,14 @@
 {% block body %}
 <br><br>
 Original Sequence: {{ task.name }} <br><br>
-Original TIme: {{ task.time }}<br><br>
+Original Time In Minutes: {{ task.time }}<br><br>
 Original Difficulty: {{ task.difficulty }}
 <br><br>
 <form action='' method='POST'>
-    {{ form.hidden_tag() }}
-    {{ form.description.label }} {{ form.description }} <br><br>
-    {{ form.instruction.label }} {{ form.instruction }} <br><br>
-    {{ form.difficulty.label }} {{ form.difficulty }} <br><br>
-    {{ form.submit }}
+    {{ formTwo.hidden_tag() }}
+    {{ formTwo.name.label }} {{ formTwo.name }} <br><br>
+    {{ formTwo.time.label }} {{ formTwo.time }} <br><br>
+    {{ formTwo.difficulty.label }} {{ formTwo.difficulty }} <br><br>
+    {{ formTwo.submit }}
 </form>
 {% endblock body %}

@@ -3,18 +3,22 @@ import unittest
 from flask import url_for
 from flask.wrappers import Response
 from flask_testing import TestCase
+import os
+from os import getenv
 
 # import the app's classes and objects
 from application import app, db
-from application.models import Task
+from application.models import YogaMove, YogaSequence
 
 # Create the base class
 class TestBase(TestCase):
     def create_app(self):
 
+        SECRET_KEY = os.urandom(32)
+
         # Pass in testing configurations for the app. Here we use sqlite without a persistent database for our tests.
-        app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:///",
-                SECRET_KEY='TEST_SECRET_KEY',
+        app.config.update(SQLALCHEMY_DATABASE_URI=getenv('DATABASE_URI'),
+                SECRET_KEY=SECRET_KEY,
                 DEBUG=True,
                 WTF_CSRF_ENABLED=False
                 )
@@ -26,8 +30,10 @@ class TestBase(TestCase):
         """
         # Create table
         db.create_all()
-        test_task = Task(description="Test the flask app")
-        db.session.add(test_task)
+        test_move = YogaMove(description="Test the flask app", instruction="Lay on the ground", difficulty="Beginner")
+        test_sequence = YogaSequence(name="Test sequence name", difficulty="Beginner", time=15)
+        db.session.add(test_move)
+        db.session.add(test_sequence)
         db.session.commit()
 
     def tearDown(self):
@@ -48,49 +54,74 @@ class TestViews(TestBase):
         response = self.client.get(url_for('create'))
         self.assertEqual(response.status_code, 200)
 
+    def test_create_sequence_get(self):
+        response = self.client.get(url_for('createsequence'))
+        self.assertEqual(response.status_code, 200)
+
     def test_update_get(self):
         response = self.client.get(url_for('update', id=1), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
-    def test_complete_get(self):
-        response = self.client.get(url_for('complete', id=1), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-
-    def test_incomplete_get(self):
-        response = self.client.get(url_for('incomplete', id=1), follow_redirects=True)
+    def test_update_sequence_get(self):
+        response = self.client.get(url_for('updatesequences', id=1), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
     def test_delete_get(self):
         response = self.client.get(url_for('delete', id=1), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
+    def test_delete_sequence_get(self):
+        response = self.client.get(url_for('deletesequence', id=1), follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
 class TestRead(TestBase):
-    def test_read_tasks(self):
+    def test_read_move(self):
         response = self.client.get(url_for("home"))
         self.assertIn(b"Test the flask app",response.data)
+        
+    def test_read_sequence(self):
+        response = self.client.get(url_for("home"))
+        self.assertIn(b"Test sequence name", response.data)
 
 class TestCreate(TestBase):
-    def test_create_task(self):
+    def test_create_move(self):
         response = self.client.post(
             url_for('create'),
-            data=dict(description="Create a new task"),
+            data=dict(description="Create a new move", instruction="do something", difficulty="Intermediate"),
             follow_redirects=True
         )
-        self.assertIn(b"Create a new task", response.data)
+        self.assertIn(b"Create a new move", response.data)
+        self.assertIn(b"Intermediate", response.data)
+
+    def test_create_sequence(self):
+        response = self.client.post(
+            url_for('createsequence'),
+            data=dict(name="Create a new sequence"),
+            follow_redirects=True
+        )
+        self.assertIn(b"Create a new sequence", response.data)
+        
 
 class TestUpdate(TestBase):
-     def test_update_task(self):
+     def test_update_move(self):
         response = self.client.post(
             url_for('update', id=1),
-            data=dict(description="Update a task"),
+            data=dict(description="Test the flask app", instruction="Lay on the ground", difficulty="Beginner"),
             follow_redirects=True
         )
-        self.assertIn(b"Update a task", response.data)
+        self.assertIn(b"Test the flask app", response.data)
 
 class TestDelete(TestBase):
-    def test_delete_task(self):
+    def test_delete_move(self):
         response = self.client.get(
             url_for('delete', id=1),
             follow_redirects=True
         )
         self.assertNotIn(b"Test the flask app", response.data)
+
+    def test_delete_sequence(self):
+        response = self.client.get(
+            url_for('deletesequence', id=1),
+            follow_redirects=True
+        )
+        self.assertNotIn(b"Test sequence name", response.data)

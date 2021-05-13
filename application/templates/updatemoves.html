@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
 <br><br>
-Original Task: {{ task.description }} <br><br>
-Original Instruction: {{ task.instruction }}<br><br>
-Original Difficulty: {{ task.difficulty }}
+Original Move: {{ move.description }} <br><br>
+Original Instruction: {{ move.instruction }}<br><br>
+Original Difficulty: {{ move.difficulty }}
 <br><br>
 <form action='' method='POST'>
     {{ form.hidden_tag() }}

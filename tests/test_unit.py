@@ -30,6 +30,7 @@ class TestBase(TestCase):
         """
         # Create table
         db.create_all()
+
         test_move = YogaMove(description="Test the flask app", instruction="Lay on the ground", difficulty="Beginner")
         test_sequence = YogaSequence(name="Test sequence name", difficulty="Beginner", time=15)
         db.session.add(test_move)
@@ -78,7 +79,7 @@ class TestRead(TestBase):
     def test_read_move(self):
         response = self.client.get(url_for("home"))
         self.assertIn(b"Test the flask app",response.data)
-        
+
     def test_read_sequence(self):
         response = self.client.get(url_for("home"))
         self.assertIn(b"Test sequence name", response.data)
@@ -96,20 +97,53 @@ class TestCreate(TestBase):
     def test_create_sequence(self):
         response = self.client.post(
             url_for('createsequence'),
-            data=dict(name="Create a new sequence"),
+            data=dict(name="Create a new sequence", difficulty="Intermediate", time=25, instruction=1, add_instruction=True),
             follow_redirects=True
         )
         self.assertIn(b"Create a new sequence", response.data)
+        self.assertIn(b"Intermediate", response.data)
+        self.assertIn(b"Test the flask app", response.data)
+        
+        response = self.client.post(
+            url_for('createsequence'),
+            data=dict(name="Create a new sequence", difficulty="Intermediate", time=25, instruction=1, submit=True),
+            follow_redirects=True
+        )
+        self.assertIn(b"Create a new sequence", response.data)
+        self.assertIn(b"Intermediate", response.data)
+
+
         
 
 class TestUpdate(TestBase):
-     def test_update_move(self):
+    def test_update_move(self):
         response = self.client.post(
             url_for('update', id=1),
-            data=dict(description="Test the flask app", instruction="Lay on the ground", difficulty="Beginner"),
+            data=dict(description="Test the flask app update", instruction="stand up tall", difficulty="Advanced"),
             follow_redirects=True
         )
+        self.assertIn(b"Test the flask app update", response.data)
+        self.assertIn(b"Advanced", response.data)
+
+
+    def test_update_sequence(self):
+        response = self.client.post(
+            url_for('updatesequences', id=1),
+            data=dict(name="Update a new sequence", difficulty="Advanced", time=30, instruction=1, add_instruction=True),
+            follow_redirects=True
+        )
+        self.assertIn(b"Update a new sequence", response.data)
+        self.assertIn(b"Advanced", response.data)
         self.assertIn(b"Test the flask app", response.data)
+        
+        response = self.client.post(
+            url_for('updatesequences', id=1),
+            data=dict(name="Update a new sequence", difficulty="Advanced", time=30, instruction=1, submit=True),
+            follow_redirects=True
+        )
+        self.assertIn(b"Update a new sequence", response.data)
+        self.assertIn(b"Advanced", response.data)
+
 
 class TestDelete(TestBase):
     def test_delete_move(self):
@@ -118,6 +152,9 @@ class TestDelete(TestBase):
             follow_redirects=True
         )
         self.assertNotIn(b"Test the flask app", response.data)
+        self.assertNotIn(b"Lay on the ground", response.data)
+       # self.assertNotIn(b"Beginner", response.data)
+
 
     def test_delete_sequence(self):
         response = self.client.get(
@@ -125,3 +162,4 @@ class TestDelete(TestBase):
             follow_redirects=True
         )
         self.assertNotIn(b"Test sequence name", response.data)
+        self.assertNotIn(b"15", response.data)

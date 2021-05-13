@@ -17,7 +17,7 @@ class TestBase(TestCase):
         SECRET_KEY = os.urandom(32)
 
         # Pass in testing configurations for the app. Here we use sqlite without a persistent database for our tests.
-        app.config.update(SQLALCHEMY_DATABASE_URI=getenv('DATABASE_URI'),
+        app.config.update(SQLALCHEMY_DATABASE_URI='sqlite:///test.db',
                 SECRET_KEY=SECRET_KEY,
                 DEBUG=True,
                 WTF_CSRF_ENABLED=False

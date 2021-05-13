@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block body %}
+<br><br>
+Original Move: {{ move.description }} <br><br>
+Original Instruction: {{ move.instruction }}<br><br>
+Original Difficulty: {{ move.difficulty }}
+<br><br>
+<form action='' method='POST'>
+    {{ form.hidden_tag() }}
+    {{ form.description.label }} {{ form.description }} <br><br>
+    {{ form.instruction.label }} {{ form.instruction }} <br><br>
+    {{ form.difficulty.label }} {{ form.difficulty }} <br><br>
+    {{ form.submit }}
+</form>
+{% endblock body %}

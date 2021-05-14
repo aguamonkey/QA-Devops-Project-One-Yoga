@@ -17,7 +17,7 @@ def create():
     form = TaskForm()
     if request.method == "POST":
         if form.validate_on_submit():
-            move = YogaMove(description=form.description.data, instruction=form.instruction.data, difficulty=form.difficulty.data)
+            move = YogaMove(name=form.name.data, instruction=form.instruction.data, difficulty=form.difficulty.data)
             #not sure if you can put these both on the same line
             db.session.add(move)
             db.session.commit()
@@ -31,7 +31,7 @@ def createsequence():
     if session.get('current_id'): instructions = session['current_id']
     else: instructions = []
              
-    form.instruction.choices = [(move.id, move.description) for move in YogaMove.query.all()]
+    form.instruction.choices = [(move.id, move.name) for move in YogaMove.query.all()]
 
     if request.method == "POST":
         if form.submit.data:
@@ -48,7 +48,7 @@ def createsequence():
             if form.instruction.data:
                 instructions.append(form.instruction.data)
                 session['current_id'] = instructions
-    instructions = [YogaMove.query.get(id).description for id in instructions]
+    instructions = [YogaMove.query.get(id).name for id in instructions]
 
     return render_template("addsequence.html", title="Create a sequence", form=form, instructions=instructions)
 
@@ -58,7 +58,7 @@ def update(id):
     form = TaskForm()
     move = YogaMove.query.filter_by(id=id).first()
     if request.method == "POST":
-        move.description = form.description.data
+        move.name = form.name.data
         move.instruction = form.instruction.data
         move.difficulty = form.difficulty.data
         db.session.commit()
@@ -71,7 +71,7 @@ def updatesequences(id):
     if session.get('current_id'): instructions = session['current_id']
     else: instructions = []
 
-    formTwo.instruction.choices = [(move.id, move.description) for move in YogaMove.query.all()]
+    formTwo.instruction.choices = [(move.id, move.name) for move in YogaMove.query.all()]
 
     sequence = YogaSequence.query.filter_by(id=id).first()
     if request.method == "POST":
@@ -88,9 +88,9 @@ def updatesequences(id):
             if formTwo.instruction.data:
                 instructions.append(formTwo.instruction.data)
                 session['current_id'] = instructions
-    instructions = [YogaMove.query.get(id).description for id in instructions]
+    instructions = [YogaMove.query.get(id).name for id in instructions]
 
-    return render_template("updatesequences.html", formTwo=formTwo, title="Update Sequence", sequence=sequence, instructions=instructions, instruction_names=', '.join([instruction.description for instruction in sequence.moves]))
+    return render_template("updatesequences.html", formTwo=formTwo, title="Update Sequence", sequence=sequence, instructions=instructions, instruction_names=', '.join([instruction.name for instruction in sequence.moves]))
 
 
 @app.route("/delete/<int:id>")

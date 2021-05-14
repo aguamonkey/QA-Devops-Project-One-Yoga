@@ -8,7 +8,7 @@ association_table = db.Table('association_table', db.Model.metadata,
 
 class YogaMove(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     instruction = db.Column(db.String(200), nullable=False)
     difficulty = db.Column(db.String(20), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())

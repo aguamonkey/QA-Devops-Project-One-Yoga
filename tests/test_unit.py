@@ -31,7 +31,7 @@ class TestBase(TestCase):
         # Create table
         db.create_all()
 
-        test_move = YogaMove(description="Test the flask app", instruction="Lay on the ground", difficulty="Beginner")
+        test_move = YogaMove(name="Test the flask app", instruction="Lay on the ground", difficulty="Beginner")
         test_sequence = YogaSequence(name="Test sequence name", difficulty="Beginner", time=15)
         db.session.add(test_move)
         db.session.add(test_sequence)
@@ -88,7 +88,7 @@ class TestCreate(TestBase):
     def test_create_move(self):
         response = self.client.post(
             url_for('create'),
-            data=dict(description="Create a new move", instruction="do something", difficulty="Intermediate"),
+            data=dict(name="Create a new move", instruction="do something", difficulty="Intermediate"),
             follow_redirects=True
         )
         self.assertIn(b"Create a new move", response.data)
@@ -119,7 +119,7 @@ class TestUpdate(TestBase):
     def test_update_move(self):
         response = self.client.post(
             url_for('update', id=1),
-            data=dict(description="Test the flask app update", instruction="stand up tall", difficulty="Advanced"),
+            data=dict(name="Test the flask app update", instruction="stand up tall", difficulty="Advanced"),
             follow_redirects=True
         )
         self.assertIn(b"Test the flask app update", response.data)

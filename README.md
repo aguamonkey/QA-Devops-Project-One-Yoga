@@ -6,7 +6,12 @@
     * [Objective](#Objective)
     * [Proposal](#Proposal)
 * [Architecture](#Architecture)
+    * [Trello Board](#Trello-Board)
+    * [Risk Assessment](#Risk-Assessment)
+    * [Entity Relationship Diagram](entity-relationship-diagram)
+    * [Continuous Integration](#continous-integration)
 * [Development](#Development)
+    * [Unit Testing](#Unit-Testing)
 * [Footer](#Footer)
 
 
@@ -62,15 +67,19 @@ The best way I can show you what my aim was is by detailing the CRUD functionali
 
 ## **Architecture**
 
-### **Trello**
+### **Trello Board**
 
-[Link to my trello](https://trello.com)
+[Link to my trello](https://trello.com/b/uiTDLXOj/yoga-database)
 
-![Image of trello board]()
+![Image of trello board](https://i.imgur.com/uGmkthF.png)
 
 ### **Risk Assessment**
 
-For my initial risk assessment I focused more on the physical risks associated with attempting to do yoga. This initial analysis along with the user stories put forward, helped me clarify what types of information to host on my site aswell as within my database. For instance, a risk that came up was the possibilty of injury for the user. THis lead me to display warnings on my site and showed me it would be important to have a difficulty section to the database, stemming from beginner to intermediate to advanced. The rows highlighted in grey came after I learned more about the risks associated with databases from the course.
+[Link to my risk assessment](https://trello.com/b/uiTDLXOj/yoga-database)
+
+![Image of trello board](https://i.imgur.com/g9HwpXZ.png)
+
+For my initial risk assessment I focused more on the physical risks associated with attempting to do yoga. This initial analysis along with the user stories put forward, helped me clarify what types of information to host on my site aswell as within my database. For instance, a risk that came up was the possibilty of injury for the user. This lead me to display warnings on my site and showed me it would be important to have a difficulty section within the database, stemming from beginner to intermediate to advanced. The rows highlighted in grey came after I learned more about the risks associated with databases from the course.
 
 ### **Entity Relationship Diagram**
 
@@ -83,13 +92,19 @@ As you can see, my initial idea was to have a one to many database relationship 
 ![Many to many ERD](https://i.imgur.com/b4gayXX.png)
 
 
-
-
 ### **Continous Integration**
 
+![Image of CI Pipeline](https://i.imgur.com/ebrOYh5.png)
 
 
+## **Development**
 
-## Development
+### **Unit Testing**
 
-## Footer
+![Image of terminal tests](https://i.imgur.com/5Swfy00.png)
+
+![Image of tests run through jenkins](https://i.imgur.com/3bcAn7p.png)
+
+## **Footer**
+
+### **Future Improvements**:

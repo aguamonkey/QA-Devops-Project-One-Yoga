@@ -127,3 +127,8 @@ There are a number of improvements I would like to make given the time in the fu
 ### **Author**
 
 Joshua Browne
+
+
+### **Acknowledgements**
+* [Harry Volker](https://github.com/htr-volker)
+* [Oliver Nichols](https://github.com/OliverNichols)

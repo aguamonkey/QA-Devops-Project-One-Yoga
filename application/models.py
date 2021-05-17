@@ -20,7 +20,7 @@ class YogaSequence(db.Model):
     difficulty = db.Column(db.String(20), nullable=False)
     time = db.Column(db.Integer)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    moves = db.relationship('YogaMove', backref='sequence', secondary='association_table')
+    moves = db.relationship('YogaMove', backref='sequence', passive_deletes = True, secondary='association_table')
 
 
 

@@ -12,6 +12,7 @@
     * [Continuous Integration](#continous-integration)
 * [Development](#Development)
     * [Unit Testing](#Unit-Testing)
+    * [Front End Design](#Front-End-Design)
 * [Footer](#Footer)
 
 
@@ -113,6 +114,23 @@ As mentioned unit testing was used to ensure that the functionality of different
 I then created two .sh files, one for running the program and one for running the test through Jenkins. As you can see the result returned was the same.
 
 ![Image of tests run through jenkins](https://i.imgur.com/3bcAn7p.png)
+
+### **Front End Design**
+
+Below is a brief outline of how the front end of the website looks.
+
+Home Page:
+
+![Image of home page](https://i.imgur.com/rSq2lJw.png)
+
+Create Move Page:
+
+![Image of create move page](https://i.imgur.com/BDF21WN.png)
+
+Create Sequence Page:
+
+![Image of create sequence page](https://i.imgur.com/NXpPkOQ.png)
+
 
 ## **Footer**
 

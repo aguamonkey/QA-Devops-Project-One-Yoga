@@ -81,7 +81,7 @@ I decided to use Trello because it is simple in it's design, free to use and is 
 
 For my initial risk assessment I focused more on the physical risks associated with attempting to do yoga. This initial analysis along with the user stories put forward, helped me clarify what types of information to host on my site aswell as within my database. For instance, a risk that came up was the possibilty of injury for the user. This lead me to display warnings on my site and showed me it would be important to have a difficulty section within the database, stemming from beginner to intermediate to advanced. The rows highlighted in grey came after I learned more about the risks associated with databases from the course.
 
-![Image of risk assessment](https://i.imgur.com/pzFothU.png)
+![Image of risk assessment](https://i.imgur.com/olmMcyc.png)
 
 
 ### **Entity Relationship Diagram**

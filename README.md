@@ -99,7 +99,7 @@ As you can see, my initial idea was to have a one to many database relationship 
 
 Through learning about continous integration and having now experienced it in practice within my own project, I see how it would fit in well with any business. It allows for a streamlined development process that leads to deploying a product that has a strong foundation. I use Git as my version control system to push my code to andd then used Jenkins to fetch and build the repositiory. Finally I used Pytest in combination with Jenkins to display the coverage reports.
 
-![Image of CI Pipeline](https://i.imgur.com/ebrOYh5.png)
+![Image of CI Pipeline](https://i.imgur.com/nJbmeV6.png)
 
 
 ## **Development**
